@@ -1,6 +1,14 @@
 # parkinglot
 
 
+Run this application like blow:
+
+  1. mvn clean install
+  2. java -jar ../.m2/repository/com/example/parking/0.0.1-SNAPSHOT/parking-0.0.1-SNAPSHOT.jar src/main/java/com/example/parking/ParkingApplication
+
+
+
+
 Register or allocate a parking lot with
 
 curl -X POST \
@@ -15,6 +23,8 @@ curl -X POST \
 "from" : "2021-05-12T10:00:00.000",
 "vehicleNo" : "TN33 BB 4444"
 }'
+
+
 
 
 DeRegister a parking lot with
