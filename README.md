@@ -1,12 +1,15 @@
 # parkinglot
 
-
+Sample Parking lot application without any validation or DB access.
+<BR>
+<BR>
 Run this application like blow:
 
   1. mvn clean install
   2. java -jar ../.m2/repository/com/example/parking/0.0.1-SNAPSHOT/parking-0.0.1-SNAPSHOT.jar src/main/java/com/example/parking/ParkingApplication
 
-
+<BR>
+<BR>
 
 
 Register or allocate a parking lot with
@@ -25,7 +28,8 @@ curl -X POST \
 }'
 
 
-
+<BR>
+<BR>
 
 DeRegister a parking lot with
 
