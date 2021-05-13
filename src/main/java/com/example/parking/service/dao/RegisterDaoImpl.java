@@ -3,24 +3,23 @@ package com.example.parking.service.dao;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.parking.common.model.RegisterEvent;
-import com.example.parking.common.model.User;
+import com.example.parking.common.model.ParkingToken;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class RegisterDaoImpl implements RegisterDao {
 
-    Map<String, RegisterEvent> cache = new HashMap<>();
+    Map<String, ParkingToken> cache = new HashMap<>();
 
     @Override
-    public RegisterEvent register(RegisterEvent event) {
+    public ParkingToken register(ParkingToken token) {
 
-        cache.put(event.cardId, event);
-        return cache.get(event.cardId);
+        cache.put(token.tokenId, token);
+        return cache.get(token.tokenId);
     }
 
     @Override
-    public void deRegister(RegisterEvent event) {
-        cache.put(event.cardId, event);
+    public void deRegister(ParkingToken token) {
+        cache.put(token.tokenId, token);
     }
 }

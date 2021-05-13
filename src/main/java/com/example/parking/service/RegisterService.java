@@ -1,9 +1,9 @@
 package com.example.parking.service;
 
-import com.example.parking.common.model.RegisterEvent;
+import com.example.parking.common.model.ParkingToken;
 
 public interface RegisterService {
 
-    RegisterEvent register(RegisterEvent event);
-    RegisterEvent deRegister(RegisterEvent event);
+    ParkingToken register(ParkingToken token);
+    ParkingToken deRegister(String parkingTokenId);
 }

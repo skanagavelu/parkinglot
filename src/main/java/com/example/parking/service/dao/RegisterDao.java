@@ -1,13 +1,12 @@
 package com.example.parking.service.dao;
 
-import com.example.parking.common.model.RegisterEvent;
-import com.example.parking.common.model.User;
+import com.example.parking.common.model.ParkingToken;
 
 public interface RegisterDao {
 
-    RegisterEvent register(RegisterEvent event);
+    ParkingToken register(ParkingToken token);
 
-    void deRegister(RegisterEvent event);
+    void deRegister(ParkingToken token);
 
 
 }

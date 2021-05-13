@@ -2,8 +2,8 @@ package com.example.parking.service;
 
 import java.util.Date;
 
-import com.example.parking.common.model.Lot;
-import com.example.parking.common.model.RegisterEvent;
+import com.example.parking.common.model.ParkingSlot;
+import com.example.parking.common.model.ParkingToken;
 import com.example.parking.service.dao.RegisterDao;
 import com.example.parking.service.validation.RegisterValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +17,19 @@ public class RegisterServiceImpl implements RegisterService {
     RegisterValidation validation;
 
     @Autowired
-    SlotService slotService;
+    ParkingTokenService tokenService;
+
+    @Autowired
+    ParkingSlotService slotService;
 
     @Autowired
     RegisterDao registerDao;
 
-    public RegisterEvent register(RegisterEvent event){
+    public ParkingToken register(ParkingToken token){
 
-        if(validation.isRegistrationValid(event).getStatus() == HttpStatus.OK) {
-            slotService.getLot(event.slotId);
-            return registerDao.register(event);
+        if(validation.isRegistrationValid(token).getStatus() == HttpStatus.OK) {
+            slotService.bookParkingSlot(token.parkingSlotId);
+            return registerDao.register(token);
         } else {
 
             //TODO: Should return the validation response which contains error code and message for the user
@@ -34,13 +37,15 @@ public class RegisterServiceImpl implements RegisterService {
         }
     }
 
-    public RegisterEvent deRegister(RegisterEvent event){
+    public ParkingToken deRegister(String parkingTokenId){
 
-        if(validation.isDeRegistrationValid(event).getStatus() == HttpStatus.OK) {
-            event.to = new Date();
-            event.cost = calculateCost(event.slotId, event.from);
-            registerDao.deRegister(event);
-            return event;
+        if(validation.isDeRegistrationValid(parkingTokenId).getStatus() == HttpStatus.OK) {
+            ParkingToken token = tokenService.getParkingToken(parkingTokenId);
+            token.to = new Date();
+            token.cost = calculateCost(token.parkingSlotId, token.from);
+            slotService.freeParkingSlot(token.parkingSlotId);
+            registerDao.deRegister(token);
+            return token;
         } else {
 
             //TODO: Should return the validation response which contains error code and message for the user
@@ -54,10 +59,9 @@ public class RegisterServiceImpl implements RegisterService {
         return (int) (to.getTime() - from.getTime()) / MILLI_TO_HOUR;
     }
 
-
     private double calculateCost(String lotId, Date from) {
 
-        Lot lot = slotService.getLot(lotId);
+        ParkingSlot lot = slotService.getParkingSlot(lotId);
         int hoursUsed = hoursDifference(from, new Date());
         return  lot.type.getCost(hoursUsed);
     }

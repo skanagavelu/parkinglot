@@ -1,7 +1,6 @@
 package com.example.parking.service.validation;
 
-import com.example.parking.common.model.RegisterEvent;
-import com.example.parking.common.model.User;
+import com.example.parking.common.model.ParkingToken;
 import com.example.parking.common.response.utils.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -9,13 +8,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class RegisterValidation {
 
-    public Response isRegistrationValid(RegisterEvent event){
+    public Response isRegistrationValid(ParkingToken token){
 
-        return new Response(event, HttpStatus.OK);
+        return new Response(token, HttpStatus.OK);
     }
 
-    public Response isDeRegistrationValid(RegisterEvent event){
+    public Response isDeRegistrationValid(String parkingTokenId){
 
-        return new Response(event, HttpStatus.OK);
+        return new Response(null, HttpStatus.OK);
     }
 }

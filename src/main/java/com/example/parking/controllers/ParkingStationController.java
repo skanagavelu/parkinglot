@@ -1,7 +1,7 @@
 package com.example.parking.controllers;
 
-import com.example.parking.common.model.User;
-import com.example.parking.service.UserService;
+import com.example.parking.common.model.ParkingStation;
+import com.example.parking.service.ParkingStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,35 +15,34 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("v0")
-public class UserController {
+public class ParkingStationController {
 
     @Autowired
-    final UserService service = null;
+    final ParkingStationService service = null;
 
-    @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/parkingStations/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity getUser(final @PathVariable String userId) {
+    public ResponseEntity getParkingStation(final @PathVariable String id) {
 
         try {
 
-            User user =  service.getUser(userId);
+            ParkingStation parkingStation =  service.getParkingStation(id);
             return ResponseEntity.status(HttpStatus.OK)
-                                 .body(user);
+                                 .body(parkingStation);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                                  .body(null);
         }
     }
 
-    @RequestMapping(value = "/users/", method = RequestMethod.POST)
+    @RequestMapping(value = "/parkingStations/", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity createUser(final @RequestBody User user) {
+    public ResponseEntity createParkingStation(final @RequestBody ParkingStation parkingStation) {
         try {
 
-            System.out.println("User:" + user);
-            User userCreated =  service.createUser(user);
+            ParkingStation parkingStationCreated =  service.createParkingStation(parkingStation);
             return ResponseEntity.status(HttpStatus.OK)
-                                 .body(userCreated);
+                                 .body(parkingStationCreated);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                                  .body(null);

@@ -1,6 +1,6 @@
 package com.example.parking.controllers;
 
-import com.example.parking.common.model.RegisterEvent;
+import com.example.parking.common.model.ParkingToken;
 import com.example.parking.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,12 +19,13 @@ public class RegisterController {
     @Autowired
     RegisterService service;
 
-    @RequestMapping(value = "/parking/{id}/register/", method = RequestMethod.POST)
+    @RequestMapping(value = "/parkingStations/{parkingStationsId}/register/", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity register(final @RequestBody RegisterEvent event) {
+    public ResponseEntity register(final @PathVariable String parkingStationsId,
+                                   final @RequestBody ParkingToken token) {
         try {
 
-            RegisterEvent userCreated =  service.register(event);
+            ParkingToken userCreated =  service.register(token);
             return ResponseEntity.status(HttpStatus.OK)
                                  .body(userCreated);
         } catch (Exception e) {
@@ -33,24 +34,19 @@ public class RegisterController {
         }
     }
 
-    @RequestMapping(value = "/parking/{id}/deregister/", method = RequestMethod.POST)
+    @RequestMapping(value = "/parkingStations/{parkingStationsId}/deRegister/{parkingTokenId}",
+                    method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity deRegister(final @RequestBody RegisterEvent event) {
+    public ResponseEntity deRegister(final @PathVariable String parkingStationsId,
+                                     final @RequestBody String parkingTokenId) {
         try {
 
-            RegisterEvent userCreated =  service.deRegister(event);
+            ParkingToken userCreated =  service.deRegister(parkingTokenId);
             return ResponseEntity.status(HttpStatus.OK)
                                  .body(userCreated);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                                  .body(null);
         }
-    }
-
-    @RequestMapping(value = "/parking/{parkingId}/register/{registerId}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity getRegister(final @PathVariable String parkingId,
-                                      final @PathVariable String registerId) {
-        return null;
     }
 }
