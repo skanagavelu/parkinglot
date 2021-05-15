@@ -2,6 +2,7 @@ package com.example.parking.common.model;
 
 /**
  * Represents parking slot area allocated per {@link ParkingToken}
+ * Currently not supported
  */
 public class ParkingSlot {
 

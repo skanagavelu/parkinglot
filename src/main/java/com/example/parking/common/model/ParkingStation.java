@@ -1,6 +1,7 @@
 package com.example.parking.common.model;
 
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Parking station at a geolocation
@@ -10,5 +11,5 @@ public class ParkingStation {
     public String id;
     public String name;
     public String address;
-    public List<ParkingSlot> parkingSlots;
+    public Map<VehicleType, AtomicInteger> parkingSlots;
 }

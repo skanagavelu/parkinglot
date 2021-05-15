@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ParkingStationValidation {
 
-    public Response isParkingStationValid(ParkingStation parkingLot){
+    public Response isParkingStationValid(ParkingStation parkingStation){
 
-        return new Response(parkingLot, HttpStatus.OK);
+        return new Response(parkingStation, HttpStatus.OK);
     }
 }

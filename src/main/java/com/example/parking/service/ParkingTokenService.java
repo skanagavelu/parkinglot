@@ -4,9 +4,9 @@ import com.example.parking.common.model.ParkingToken;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ParkingTokenService {
+public interface ParkingTokenService {
 
-    ParkingToken getParkingToken(String parkingTokenId) {
-        return null;
-    }
+    ParkingToken get(String parkingTokenId);
+    ParkingToken park(ParkingToken token);
+    ParkingToken depart(String parkingTokenId);
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import java.util.UUID;
 
 @Controller
 @RequestMapping("v0")
@@ -27,11 +27,10 @@ public class ParkingStationController {
         try {
 
             ParkingStation parkingStation =  service.getParkingStation(id);
-            return ResponseEntity.status(HttpStatus.OK)
-                                 .body(parkingStation);
+            return ResponseEntity.status(HttpStatus.OK).body(parkingStation);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                                 .body(null);
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
@@ -40,6 +39,7 @@ public class ParkingStationController {
     public ResponseEntity createParkingStation(final @RequestBody ParkingStation parkingStation) {
         try {
 
+            parkingStation.id = UUID.randomUUID().toString();
             ParkingStation parkingStationCreated =  service.createParkingStation(parkingStation);
             return ResponseEntity.status(HttpStatus.OK)
                                  .body(parkingStationCreated);

@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RegisterValidation {
+public class ParkingTokenValidation {
 
     public Response isRegistrationValid(ParkingToken token){
 

@@ -1,7 +1,6 @@
 package com.example.parking.service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import com.example.parking.common.model.ParkingSlot;
 import org.springframework.stereotype.Service;
@@ -9,34 +8,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class ParkingSlotServiceImpl implements ParkingSlotService {
 
-    Map<String, ParkingSlot> cache = new HashMap<>();
-
     @Override
-    public ParkingSlot getParkingSlot(String id) {
+    public ParkingSlot getParkingSlot(String parkingStationId, String id) {
 
-        return cache.get(id);
+        return null;
     }
 
     @Override
-    public ParkingSlot createParkingSlot(ParkingSlot slot) {
+    public List<ParkingSlot> getAllParkingSlots(String parkingStationId) {
 
-       cache.putIfAbsent(slot.no, slot);
-       return cache.get(slot.no);
+        return null;
     }
 
     @Override
     public ParkingSlot bookParkingSlot(String id) {
 
-        ParkingSlot slot = cache.get(id);
-        slot.isBooked = true;
-        return cache.get(id);
+        return null;
     }
 
     @Override
     public ParkingSlot freeParkingSlot(String id) {
 
-        ParkingSlot slot = cache.get(id);
-        slot.isBooked = false;
-        return cache.get(id);
+        return null;
     }
 }

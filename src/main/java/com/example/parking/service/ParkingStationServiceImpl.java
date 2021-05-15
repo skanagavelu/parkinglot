@@ -1,6 +1,7 @@
 package com.example.parking.service;
 
 import com.example.parking.common.model.ParkingStation;
+import com.example.parking.common.model.VehicleType;
 import com.example.parking.service.dao.ParkingStationDao;
 import com.example.parking.service.validation.ParkingStationValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,11 @@ public class ParkingStationServiceImpl implements ParkingStationService {
     }
 
     @Override
-    public ParkingStation createParkingStation(ParkingStation parkingLot) {
+    public ParkingStation createParkingStation(ParkingStation parkingStation) {
 
-        if(validation.isParkingStationValid(parkingLot).getStatus() == HttpStatus.OK) {
+        if(validation.isParkingStationValid(parkingStation).getStatus() == HttpStatus.OK) {
 
-            return parkingStationDao.createParkingStation(parkingLot);
+            return parkingStationDao.createParkingStation(parkingStation);
         } else {
 
             //TODO: Should return the validation response which contains error code and message for the user
@@ -44,5 +45,17 @@ public class ParkingStationServiceImpl implements ParkingStationService {
     @Override
     public void deleteParkingStation(String id) {
 
+    }
+
+    @Override
+    public boolean bookParkingSlot(String parkingStationId, VehicleType type) {
+
+        return parkingStationDao.bookParkingSlot(parkingStationId, type);
+    }
+
+    @Override
+    public void freeParkingSlot(String parkingStationId, VehicleType type) {
+
+         parkingStationDao.freeParkingSlot(parkingStationId, type);
     }
 }
