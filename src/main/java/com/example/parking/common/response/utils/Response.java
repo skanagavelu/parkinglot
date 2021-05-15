@@ -4,10 +4,16 @@ import org.springframework.http.HttpStatus;
 
 public class Response<T> {
 
-    T body;
-    HttpStatus status;
+    public int code = 0; //Successful
+    public HttpStatus status = HttpStatus.OK; //Successful
+    public T body;
 
-    public Response(){}
+    public Response() {}
+
+    public Response(T body) {
+
+        this.body = body;
+    }
 
     public Response(T body, HttpStatus status) {
 
@@ -15,57 +21,66 @@ public class Response<T> {
         this.status = status;
     }
 
-    public T getBody() {
+    public ErrorResponse getFailureResponse() {
 
-        return body;
+        throw new UnsupportedOperationException();
     }
 
-    public void setBody(T body) {
+    public T getSuccessfulResponse() {
 
-        this.body = body;
+        throw new UnsupportedOperationException();
     }
 
     public HttpStatus getStatus() {
 
-        return status;
+        return this.status;
     }
 
-    public void setStatus(HttpStatus status) {
+    public static class SuccessfulResponse<T> extends Response<T> {
 
-        this.status = status;
+        public SuccessfulResponse(T body) {
+
+            this.body = body;
+        }
+
+        public SuccessfulResponse(HttpStatus status, T body) {
+
+            this.status = status;
+            this.body = body;
+        }
+
+        public T getSuccessfulResponse() {
+
+            return body;
+        }
     }
 
-    static class FailureResponse{
+    public static class FailureResponse<T> extends Response<T> {
 
-        int code;
-        String message;
+        private ErrorResponse errorResponse;
 
         public FailureResponse(ResponseCode responseCode) {
+
             this.code = responseCode.getCode();
-            this.message = responseCode.getCause();
+            this.status = responseCode.getStatus();
+            this.errorResponse = new ErrorResponse(responseCode.getCode(), responseCode.getCause());
         }
 
-        public FailureResponse(int code, String message) {
+        public ErrorResponse getFailureResponse() {
 
-            this.code = code;
-            this.message = message;
+            return errorResponse;
         }
     }
+}
 
-//    static class SuccessfulResponse {
-//
-//        int code;
-//        String message;
-//
-//        public SuccessfulResponse(ResponseCode responseCode) {
-//            this.code = responseCode.getCode();
-//            this.message = responseCode.getCause();
-//        }
-//
-//        public SuccessfulResponse(int code, String message) {
-//
-//            this.code = code;
-//            this.message = message;
-//        }
-//    }
+class ErrorResponse {
+
+    public int code;
+    public String cause;
+
+    public ErrorResponse(int code, String cause) {
+
+        this.code = code;
+        this.cause = cause;
+    }
 }

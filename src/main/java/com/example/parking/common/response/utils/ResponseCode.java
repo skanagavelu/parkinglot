@@ -13,11 +13,18 @@ public enum ResponseCode {
     SUCCESS(0, "SUCCESS", HttpStatus.OK),
     INVALID_PDU(1, "Invalid PDU", HttpStatus.BAD_REQUEST), //Invalid Request Content
     INVALID_REQUEST(2, "Invalid Request", HttpStatus.BAD_REQUEST),
-    INVALID_BATCH_SIZE(3, "Invalid batch size used", HttpStatus.BAD_REQUEST),
+    INVALID_DATA(3, "Invalid Data", HttpStatus.BAD_REQUEST),
+    NOT_FOUND(4, "Not Found", HttpStatus.NOT_FOUND),
     ACCESS_DENIED(103,"Access denied", HttpStatus.FORBIDDEN),
+    INTERNAL_SERVER_ERROR(500,"Internal Error while processing the request", HttpStatus.INTERNAL_SERVER_ERROR),
 
-    INVALID_DATA(4, "Invalid Data", HttpStatus.BAD_REQUEST),
-    NOT_FOUND(6, "Not Found", HttpStatus.NOT_FOUND);
+    //Application errors
+    PARKING_STATION_NOT_FOUND(1001, "Parking station not found", HttpStatus.NOT_FOUND),
+
+    ;
+
+//    ACCESS_DENIED(1001,"", HttpStatus.FORBIDDEN);
+
 
     private int code;
     private String cause;

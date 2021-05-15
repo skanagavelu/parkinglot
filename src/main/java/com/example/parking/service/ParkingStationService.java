@@ -2,12 +2,13 @@ package com.example.parking.service;
 
 import com.example.parking.common.model.ParkingStation;
 import com.example.parking.common.model.VehicleType;
+import com.example.parking.common.response.utils.Response;
 
 public interface ParkingStationService {
 
-    ParkingStation getParkingStation(String id);
+    Response<ParkingStation> getParkingStation(String id);
 
-    ParkingStation createParkingStation(ParkingStation user);
+    Response<ParkingStation> createParkingStation(ParkingStation user);
 
     boolean bookParkingSlot(String parkingStationId, VehicleType type);
 

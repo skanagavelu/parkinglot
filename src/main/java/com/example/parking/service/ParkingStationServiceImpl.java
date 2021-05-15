@@ -2,6 +2,7 @@ package com.example.parking.service;
 
 import com.example.parking.common.model.ParkingStation;
 import com.example.parking.common.model.VehicleType;
+import com.example.parking.common.response.utils.Response;
 import com.example.parking.service.dao.ParkingStationDao;
 import com.example.parking.service.validation.ParkingStationValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +19,20 @@ public class ParkingStationServiceImpl implements ParkingStationService {
     ParkingStationDao parkingStationDao;
 
     @Override
-    public ParkingStation getParkingStation(String id) {
+    public Response<ParkingStation> getParkingStation(String id) {
 
         return parkingStationDao.getParkingStation(id);
     }
 
     @Override
-    public ParkingStation createParkingStation(ParkingStation parkingStation) {
+    public Response<ParkingStation> createParkingStation(ParkingStation parkingStation) {
 
-        if(validation.isParkingStationValid(parkingStation).getStatus() == HttpStatus.OK) {
+        Response<ParkingStation> response = validation.isParkingStationValid(parkingStation);
+        if(response.status == HttpStatus.OK) {
 
-            return parkingStationDao.createParkingStation(parkingStation);
-        } else {
-
-            //TODO: Should return the validation response which contains error code and message for the user
-            return  null;
+            response = parkingStationDao.createParkingStation(parkingStation);
         }
+        return response;
     }
 
     @Override

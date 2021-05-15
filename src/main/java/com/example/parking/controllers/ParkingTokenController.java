@@ -30,8 +30,8 @@ public class ParkingTokenController {
             token.tokenId = UUID.randomUUID().toString();
             token.from = new Date();
             ParkingToken tokenCreated =  service.park(token);
-            return ResponseEntity.status(HttpStatus.OK)
-                                 .body(tokenCreated);
+            return ResponseEntity.status(HttpStatus.OK).body(tokenCreated);
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                                  .body(null);
