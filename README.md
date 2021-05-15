@@ -49,6 +49,6 @@ curl -X POST \
 Get updated parking token while depart to see the cost
 
 curl -X DELETE \
-  http://localhost:8080/v0/parkingTokens/depart/b8431ef0-be17-4e9f-b6ba-f7b1a5c95967 \
+  http://localhost:8080/v0/parkingTokens/depart/b8431ef0-be17-4e9f-b6ba-f7b1a5c95967 \ <--- Update from previous request
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
