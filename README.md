@@ -1,8 +1,22 @@
-# parkinglot
+# ParkingLot (Parking lot Problem)
 
-Sample Parking lot application without any validation or DB access.
+Restful Parking lot spring boot application without need of DB access.
+Multiple geolocated ParkingLot can be added into the system, and can start getting parking token and cost in the specific parking lot.
+
 <BR>
 <BR>
+	
+<B>Project Requirements</B>
+<ul>
+<li>JDK 11
+<li>Maven
+<li>Spring Boot
+</ul>
+
+<BR>
+<BR>
+
+<B>Build Instructions</B>	
 Run this application like blow:
 
   1. mvn clean install
@@ -12,11 +26,10 @@ Run this application like blow:
 <BR>
 
 
-Register a parking lot with capacities
+<B>Register a parking lot with capacities</B>
 
 curl -X POST \
   http://localhost:8080/v0/parkingStations/ \
-  -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{
 "name" : "XYZ_Parking_station",
@@ -31,11 +44,10 @@ curl -X POST \
 <BR>
 <BR>
 
-Get a parking token while enter
+<B>Get a parking token while enter</B>
 
 curl -X POST \
   http://localhost:8080/v0/parkingTokens/park/ \
-  -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{
 "parkingStationId" : "c34995d3-f3cc-4543-b633-db9348498e17",  <--- Update from previous request
@@ -46,9 +58,8 @@ curl -X POST \
 <BR>
 <BR>
   
-Get updated parking token while depart to see the cost
+<B>Get updated parking token while depart to see the cost</B>
 
 curl -X DELETE \
-  http://localhost:8080/v0/parkingTokens/depart/b8431ef0-be17-4e9f-b6ba-f7b1a5c95967 \ <--- Update from previous request
-  -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
+  http://localhost:8080/v0/parkingTokens/depart/b8431ef0-be17-4e9f-b6ba-f7b1a5c95967 \ <BR>
+	-H 'content-type: application/json' \
